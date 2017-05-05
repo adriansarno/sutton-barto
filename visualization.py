@@ -8,13 +8,13 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 import numpy as np
 
-def plot_state_data(tensor, plot_type='wireframe', zrange=(-1, 1)):
+def plot_state_data(tensor, zlabel='V* (state value)', plot_type='wireframe', zrange=(-1, 1)):
     '''
     Plots the state values in 3D
     '''    
     for ua in [0, 1]:
         
-        fig = plt.figure(figsize=(10, 10))
+        fig = plt.figure(figsize=(16, 10))
         ax = fig.add_subplot(111, projection='3d')
 
         if plot_type == 'scatter':
@@ -33,7 +33,7 @@ def plot_state_data(tensor, plot_type='wireframe', zrange=(-1, 1)):
             ys = np.asarray([[p for d in range(10)] for p in range(10)], dtype=np.float32)
             zs = np.asarray([[tensor[d, p, ua] for d in range(10)] for p in range(10)])
             if plot_type == 'surface':
-                ax.plot_surface(xs, ys, zs, cmap=cm.coolwarm, aplpha=0.5,
+                ax.plot_surface(xs, ys, zs, cmap=cm.coolwarm, alpha=0.7,
                                 rstride=1, cstride=1, 
                                 linewidth=1, antialiased=False, shade=False)
             else:
@@ -42,18 +42,20 @@ def plot_state_data(tensor, plot_type='wireframe', zrange=(-1, 1)):
         ax.set_xlim3d(0, 9)
         ax.set_ylim3d(0, 9)
         ax.set_zlim3d(zrange[0], zrange[1])
-
+        
         ax.set_xticks(range(10))
         ax.set_yticks(range(10))
         xticklabels = ['A'] + [str(i) for i in range(2,11)]
         yticklabels = [str(i) for i in range(12,22)]
         ax.set_xticklabels(xticklabels)
         ax.set_yticklabels(yticklabels)
+        
+
 
         ax.set_title(['No Usable Ace', 'Usable Ace'][ua])
         ax.set_xlabel('dealer showing')
         ax.set_ylabel('player sum')
-        ax.set_zlabel('V* (state value)')
+        ax.set_zlabel(zlabel)
 
         plt.show()
 
