@@ -50,7 +50,7 @@ def plot_state_data(tensor, zlabel='V* (state value)', plot_type='wireframe', zr
         ax.set_xticklabels(xticklabels)
         ax.set_yticklabels(yticklabels)
         
-
+        ax.set_aspect(aspect=.4)
 
         ax.set_title(['No Usable Ace', 'Usable Ace'][ua])
         ax.set_xlabel('dealer showing')
